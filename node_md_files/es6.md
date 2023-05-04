@@ -747,7 +747,7 @@ s.price = 'free'
 > - get 通常来对对象的动态属性进行封装`(计算封装)`
 > - set 添加更对的控制或者是判断`(判断需求)`
 
-## 模块化
+## 模块化(重点)
 模块化是指将一个大的程序文件,拆分成许多小的文件,然后将小文件组合起来
 
 ### 模块化的好处
@@ -755,92 +755,107 @@ s.price = 'free'
 2. 代码复用
 3. 高维护性 
 
+### 模块化规范产品
+
+ES6之前的模块化规范有：
+
+1. CommonJS   =>  NodeJS 、Browserify
+2. AMD              =>  requireJS
+3. CMD               =>  seaJS
+
 ### Es6 模块化语法
-模块功能主要由两个命令构成: export 和 import
- - export 命令用于规定模块的对外接口
- - import 命令用于输入其他模块提供的功能
+模块功能主要由两个命令构成: `export` 和` import`
+ - export 命令用于规定模块的`对外接口`
+ - import 命令用于`输入`其他`模块`提供的功能
 
 #### ES6 模块暴露数据 
 
-分别暴露 
-```html
-  <script>
-
-  // test1.js 文件
-  export let name = 'es6模块化'
-  export function fn() {
-  console.log('我是一个模块的成员');
-  }
-
-  </script>
-
-  <script type="module">
-    // 引入 test1.js 模块内容
-    // 1.通用方式引入 标签
-    import *as m1 from './test1.js'
-    console.log(m1); // Module {Symbol(Symbol.toStringTag): 'Module'}
-    // 2.解构赋值形式引入
-    import {name, fn} from './test1.js'
-  </script>
-
-```
-统一暴露 
-```html
-<script>
-// test2.js 文件
-let name = 'es6模块化'
-function fn() {
-  console.log('我是一个模块的成员');
+三种暴露方式：`分别暴露`、`统一暴露`、`默认暴露`
+- 方式一：分别暴露
+```js
+// 分别暴露 test1.js文件
+export let school = '前端'
+export function teach() {
+  console.log('可以教学')
 }
-// 统一暴露
-export { name, fn }
-</script>
-
-<script type="module">
-// 1.通用方式引入 标签
-// 引入 test2.js 模块内容
-import *as m2 from './test2.js'
-console.log(m2); // Module {Symbol(Symbol.toStringTag): 'Module'}
-// 2.解构赋值形式引入
-// as 别名
-import {name  as uname , fn as fun} from './test2.js'
-console.log(uanme, fun)
-</script>
 ```
-默认暴露
-
-```html
-<script>
-// test3.js 文件
-// 默认暴露 可以是任意类型 对象居多
+- 方式二：统一暴露
+```js
+// 统一暴露 test2.js文件
+let school = '前端'
+function findJob() {
+  console.log('可以找工作')
+}
+// 对象字面量形式暴露
+export { school, findJob }
+```
+- 方式三：默认暴露
+```js
+// 默认暴露 test3.js文件
 export default {
-  name: 'es6模块化',
-  fn: function () {
-    console.log('我是一个模块的成员');
+  // 可以是任意类型 对象居多
+  school: '前端',
+  change: function () {
+    console.log('改变生活')
   }
 }
-</script>
-
+```
+#### ES6 引入模块数据  浏览器引入情况一：
+三种导入方式：`通用方式`、`统一暴露`、`默认暴露`
+- 方式一： `通用方式` 导入模块
+```html
+<body>
+  <!-- <script src="./index.html"></script> --> 
+  <script type="module">
+    // 1.通用方式
+    // 引入 test1.js 模块内容  
+    import * as test1 from './test1.js' 
+    console.log(test1.school);
+    // 引入 test2.js 模块内容
+    import * as test2 from './test2.js'
+    console.log(test2)
+    // 引入 test3.js 模块内容
+    import * as test3 from './test3.js'
+    console.log(test3.default.change())
+  </script>
+</body>
+```
+方式二： `解构赋值形式` 导入模块
+```html
 <script type="module">
-// 引入 test3.js 模块内容 标签
-import *as m3 from './test3.js'
-console.log(m3); // Module {Symbol(Symbol.toStringTag);'Module'}
-// 2.解构赋值形式引入
-import { default as m3 } from './test3.js'
-console.log(m3);
-
-// 3. 简便形式引入 针对默认暴露
-import m3 from './test3.js'
+    // 2.解构赋值的形式
+    import { school, teach } from './test1.js' // 分别暴露
+    console.log(school);
+    console.log(teach);
+    // as 别名设置 防止命名冲突
+    import { school as schools, findJob } from './test2.js' // 统一暴露
+    console.log(schools);
+    console.log(findJob);
+    // as 别名设置 不能直接使用 default
+    import { default as test3 } from './test3.js' // 默认暴露
+    console.log(test3)
 </script>
 ```
-#### JS 文件引入 src 属性引入
+方式三： `简便形式` 导入模块  
+> 注：`只能针对默认暴露`
 ```html
-<!-- html 页面 -->
+<script type="module">
+    // 3.简便形式  注：只能针对默认暴露
+    import test3 from './test3.js'
+    console.log(test3);
+</script>
+```
+
+#### JS 文件引入 src 属性引入 浏览器引入情况二：
+> 对以上`引入方式`的`简写`
+- index.html 文件
+```html
+<!-- html 页面 引入入口文件 -->
 <script src="./app.js" type="module"></script>
 ```
+- app.js 文件 创建`入口文件`
 ```js
 // 入口文件   app.js 文件
-
 // 模块引入
 import * as m1 from './test1.js'
 import * as m2 from './test2.js'
@@ -848,6 +863,14 @@ import * as m3 from './test3.js'
 console.log(m1);
 console.log(m2);
 console.log(m3); 
+```
+#### 项目模块化
+```html
+<!-- 
+   1. 安装工具 babel-cli(babel命令行工具) babel-preset-env(预设包，将最新ESMAScript特性转换为es5的语法) browserify(打包工具，项目使用webpack)
+   2. 命令：不是全局babel安装用npx； npx babel src/js -d dist/js
+   3. 打包 npx browserify dist/js/app.js(入口文件) -o(输出选项) dist/bundle.js
+ -->
 ```
 
 # ES7
@@ -1043,5 +1066,8 @@ btn.onclick = function () {
   })
 }
 ```
+
+
+
 
 
