@@ -52,10 +52,10 @@ song() //方法解构
         age: 18
       }
 
-      const { name: newName, age: newAge } = obj
-      console.log(newName)  // 张三
-      console.log(newAge) // 18
-      console.log(age) // 报错
+ const { name: newName, age: newAge } = obj
+ console.log(newName)  // 张三
+ console.log(newAge) // 18
+ console.log(age) // 报错
 ```     
 ## 模板字符串
 > `${变量名}` 可换行
