@@ -44,6 +44,19 @@ console.log(age); // 18
 console.log(name) // 张三
 song() //方法解构
 ```
+3.解构赋值并赋值给新变量名
+如果原对象的属性名太长或者语义化不明确，在解构的时候可以给该属性重命名，规则{ `原属性名`：`新属性名` }
+```js
+ const obj = {
+        name: '张三',
+        age: 18
+      }
+
+      const { name: newName, age: newAge } = obj
+      console.log(newName)  // 张三
+      console.log(newAge) // 18
+      console.log(age) // 报错
+```     
 ## 模板字符串
 > `${变量名}` 可换行
 
