@@ -1,17 +1,20 @@
 ## git cli
 
-注册内网 gitLab 账户
-项目管理员拉我进项目
-有了权限后，git clone ‘url’ 项目到本地
-自己创建新的项目分支 git branch ‘分支名’
+### first
+1. 注册内网 gitLab 账户
+2. 项目管理员拉我进项目
+3. 有了权限后，git clone ‘url’ 项目到本地(拉取代码到本地)
+4. 自己创建新的项目分支 git branch ‘分支名’
 开始编码吧…
-git clone 默认是下载了所有分支的代码
-git branch -r 查看项目所有分支
-git branch -a 查看项目所有远程分支
-git checkout ‘分支名’ 切换分支
-git branch 打印出来所有的分支，以及当前所在分支
-git log 查看提交记录，退出 英文状态下 Q
-git reflog 可查看修改记录（包括 git reset 的回退记录）
+
+### second
+1. git clone 默认是下载了所有分支的代码
+2. git branch -r 查看项目所有分支
+3. git branch -a 查看项目所有远程分支
+4. git checkout ‘分支名’ 切换分支
+5. git branch 打印出来所有的分支，以及当前所在分支
+6. git log 查看提交记录，退出 英文状态下 `Q`
+7. git reflog 可查看修改记录（包括 git reset 的回退记录）
 git reset --hard {commit id} 回退版本
 git stash //代码放进暂存区(未被 commit 的代码)
 git stash apply 还原
@@ -23,7 +26,10 @@ git remote -v 显示所有远程仓库
 git remote add url 添加一个远程仓库
 git remote rm name # 删除远程仓库
 git remote rename old_name new_name # 修改仓库名
-git add . 添加文件到本地仓库
+
+1. git add . 添加文件到本地仓库
+2. git rm <删除被跟踪的文件名>
+3. git rm --cache <删除被跟踪的文件名但是缓存在当前文件>
 git commit - m ‘XX’
 git push 提交到本地仓库及远程仓库
 git merge --abort 回滚到合并之前
